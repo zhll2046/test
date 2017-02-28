@@ -1,0 +1,57 @@
+<html>
+
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/powerbi-client/dist/powerbi.js"></script>
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/jquery/dist/jquery.js"></script>  
+
+<script type="text/javascript">
+window.onload = function () { 
+
+  var  Filter = {
+   $schema: "http://powerbi.com/product/schema#advanced",
+  target: {
+    table: "table Name",
+    column: "column Name"
+  },
+  logicalOperator: "OR",
+  conditions: [
+    {
+      operator: "Contains",
+      value: "CN"
+    },
+    {
+      operator: "Contains",
+      value: "CO"
+    }
+  ]
+}
+ 
+
+var embedConfiguration = {
+    type: 'report',
+    accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXIiOiIwLjIuMCIsIndjbiI6Indya3NwY0NsbGN0bjRQQkkiLCJ3aWQiOiJiN2NmNDMzYi00MzdjLTRjYTUtOWRmMi1kOWZkODIxODI0NjEiLCJyaWQiOiI3MTY5YWQ5Yy1lZDczLTRlOWItOGQ3Ni1kMjk2YjBlNmMyMTkiLCJpc3MiOiJQb3dlckJJU0RLIiwiYXVkIjoiaHR0cHM6Ly9hbmFseXNpcy53aW5kb3dzLm5ldC9wb3dlcmJpL2FwaSIsImV4cCI6MTUxNDY0OTYwMCwibmJmIjoxNDgyOTE3NTM4fQ.48-yiXS0B5yW0zriGLo25EzUrNaq1I0Zi7dYCsq8iaw',
+    id: '7169ad9c-ed73-4e9b-8d76-d296b0e6c219',
+    embedUrl: 'https://embedded.powerbi.com/appTokenReportEmbed?reportId=7169ad9c-ed73-4e9b-8d76-d296b0e6c219',
+
+}; 
+ 
+
+var $reportContainer = $('#reportContainer');
+ 
+var report = powerbi.embed($reportContainer.get(0), embedConfiguration);
+
+<!--validateReportLoad incorrectly returns schema errors for valid filters #16https://github.com/Microsoft/powerbi-models/issues/16-->
+
+report.on('loaded', event => {
+  report.getFilters()
+    .then(filters => {
+      filters.push(Filter);
+      return report.setFilters(filters);
+    });
+});
+
+}
+</script>
+
+<div id="reportContainer" powerbi-settings-nav-content-pane-enabled="true"   powerbi-settings-filter-pane-enabled="true"></div>
+
+</html>

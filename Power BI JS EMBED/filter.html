@@ -1,0 +1,57 @@
+<html>
+
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/powerbi-client/dist/powerbi.js"></script>
+
+<script src="jquery-3.1.1.min.js"></script>
+ 
+<script type="text/javascript">
+window.onload = function () { 
+  var  Filter = {
+   $schema: "http://powerbi.com/product/schema#advanced",
+  target: {
+    table: "table Name",
+    column: "column Name"
+  },
+  logicalOperator: "OR",
+  conditions: [
+    {
+      operator: "Contains",
+      value: "CN"
+    },
+    {
+      operator: "Contains",
+      value: "CO"
+    }
+  ]
+}
+ 
+
+var embedConfiguration = {
+    type: 'report',
+    accessToken: 'eyJ0eXAiOiJKV1QiL token Lo25EzUrNaq1I0Zi7dYCsq8iaw',
+    id: '7169adxxxxxxx296b0e6c219',
+    embedUrl: 'embedUrl'
+
+}; 
+ 
+
+var $reportContainer = $('#reportContainer');
+ 
+var report = powerbi.embed($reportContainer.get(0), embedConfiguration);
+
+<!--validateReportLoad incorrectly returns schema errors for valid filters #16https://github.com/Microsoft/powerbi-models/issues/16-->
+
+report.on('loaded', event => {
+  report.getFilters()
+    .then(filters => {
+      filters.push(Filter);
+      return report.setFilters(filters);
+    });
+});
+
+}
+</script>
+
+<div id="reportContainer" powerbi-settings-nav-content-pane-enabled="true"   powerbi-settings-filter-pane-enabled="true"></div>
+
+</html>

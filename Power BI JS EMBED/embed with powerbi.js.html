@@ -1,0 +1,43 @@
+<html>
+
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/jquery/dist/jquery.js"></script>  
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/powerbi-client/dist/powerbi.js"></script>
+
+<script type="text/javascript">
+window.onload = function () {
+ 
+var embedConfiguration = {
+    type: 'report',
+    accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Il9VZ3FYR190TUxkdVNKMVQ4Y2FIeFU3Y090YyIsImtpZCI6Il9VZ3FYR190TUxkdVNKMVQ4Y2FIeFU3Y090YyJ9.eyJhdWQiOiJodHRwczovL2FuYWx5c2lzLndpbmRvd3MubmV0L3Bvd2VyYmkvYXBpIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3LyIsImlhdCI6MTQ4NzI1MDk4OCwibmJmIjoxNDg3MjUwOTg4LCJleHAiOjE0ODcyNTQ4ODgsImFjciI6IjEiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiODcxYzAxMGYtNWU2MS00ZmIxLTgzYWMtOTg2MTBhN2U5MTEwIiwiYXBwaWRhY3IiOiIyIiwiZV9leHAiOjEwODAwLCJmYW1pbHlfbmFtZSI6IlpoYW5nIiwiZ2l2ZW5fbmFtZSI6Ikx2bG9uZyIsImluX2NvcnAiOiJ0cnVlIiwiaXBhZGRyIjoiMTY3LjIyMC4yNTUuNjAiLCJuYW1lIjoiTHZsb25nIFpoYW5nIChTaGFuZyBIYWkgV2VpIENodWFuZyBSdWFuIEppYW4pIiwib2lkIjoiNDc2ODAxMWEtNjY2OC00YWU0LWFiZjAtNTc0MzZkYjI4NDUxIiwib25wcmVtX3NpZCI6IlMtMS01LTIxLTIxNDY3NzMwODUtOTAzMzYzMjg1LTcxOTM0NDcwNy0xODgwNTQ1IiwicGxhdGYiOiIzIiwicHVpZCI6IjEwMDMwMDAwOEMyMkFCREUiLCJzY3AiOiJ1c2VyX2ltcGVyc29uYXRpb24iLCJzdWIiOiI0NDYxUXRUOHowalN0czFXb2VmZUdGTlEySExDVUpxYXpINW44QktadFVRIiwidGlkIjoiNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3IiwidW5pcXVlX25hbWUiOiJ2LWx2emhhbkBtaWNyb3NvZnQuY29tIiwidXBuIjoidi1sdnpoYW5AbWljcm9zb2Z0LmNvbSIsInZlciI6IjEuMCJ9.JMEPhxtTv6LHKJu-cFxmjLM2R4eZ4BDyX5c7YPHwXYnk-aqyrgWAUK81VrXVjYx_h6EEBpL4cKnHK_XIih9xkTI9sR1D8gmKDGk8D2UfPYklwnKM0_v06DNz5bm-0FIffu1mR297E2aNZUcLD38jb_XjXtEx5MylE1HZZlK23NdYpNtsVCSDw3iRbP4XQOqWLGf-CVys3acqmzuzYA_4gH_JAcFUwPe9dOBn514p3rNT1gXfx0WiTZ0i2mtrPFtOaPxnAHryvp6RdSzvnKgWDefwTVL3wizl6PL2VWqlTp7HA62tfX3ZoQ-meVGzX0gZ-aFewLmHBojK9EIWu494TA',
+    id: '1d2c0748-3709-41c8-8590-539d2dd8bc03',
+    embedUrl: 'https://msit.powerbi.com/embed?dashboardid=f1f5155b-c6e2-4147-991b-28d914927d05&tileid=50de3c3a-2e8c-49bd-ada4-18d0b1e19415' 
+}; 
+
+var $reportContainer = $('#reportContainer');
+ 
+var report = powerbi.embed($reportContainer.get(0), embedConfiguration);
+/*
+			report.on("dataSelected", function (event) {
+                var data = event.detail;
+                console.log(JSON.stringify(data));
+				alert(JSON.stringify(data));
+            });
+			*/
+   
+
+}
+
+
+function reloadreport(){
+
+var element = $('#reportContainer');
+
+alert(element);
+var report = powerbi.get(element);
+
+report.reload().catch(error => {console.log(error)  });
+};
+</script> 
+<div id="reportContainer"></div>
+
+</html>  

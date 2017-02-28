@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "extract Mails", "..\..\..\..\..\..\Dev\Exchange 2013 Search for specific items programmatically on Exchange servers\C#\Ex15_FindItems_CS\extract Mails.csproj", "{CBB92C90-1DCC-4912-897E-B0F2C8AF8331}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "extract Mails", "Ex15_FindItems_CS\extract Mails.csproj", "{CBB92C90-1DCC-4912-897E-B0F2C8AF8331}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication", "..\..\..\..\..\..\Dev\Exchange 2013 Search for specific items programmatically on Exchange servers\C#\Authentication\Authentication.csproj", "{9E50BA8E-305C-4C20-81E6-19FFD3D0BE5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication", "Authentication\Authentication.csproj", "{9E50BA8E-305C-4C20-81E6-19FFD3D0BE5B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F534A0E1-4A64-42D7-A953-8E1FD2465762}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "..\..\..\..\..\..\Dev\Exchange 2013 Search for specific items programmatically on Exchange servers\C#\Utils\Utils.csproj", "{8D2347C4-441B-4D7D-B801-E1EEF7D5FEEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{8D2347C4-441B-4D7D-B801-E1EEF7D5FEEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

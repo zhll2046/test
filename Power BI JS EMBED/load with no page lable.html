@@ -1,0 +1,26 @@
+<html>
+   <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/jquery/dist/jquery.js"></script>  
+   <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/powerbi-client/dist/powerbi.js""></script>
+   <script type="text/javascript">
+      var embedConfiguration = {
+          type: 'report',
+          accessToken: 'eyJ0YourTokenHereA',
+          id: '719c43ad-xxxxx-f79e8f58c1a6',
+          embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=719c43ad-b663-xxxxxxx-f79e8f58c1a6',
+      	settings: {
+                      filterPaneEnabled: false,
+                      navContentPaneEnabled: false
+                    } 
+      }; 
+      
+      var report;
+      
+      window.onload = function () {  
+      var $reportContainer = $('#reportContainer'); 
+       report= powerbi.embed($reportContainer.get(0), embedConfiguration);
+        
+      }  
+      
+   </script>
+   <div id="reportContainer"></div>
+</html>

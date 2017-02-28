@@ -1,0 +1,71 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head> 
+    <script type="text/javascript">
+
+        window.onload = function () {
+		
+		updateEmbedTile(); 
+        };
+
+        var width = 500;
+        var height = 500;
+
+         
+
+        // update embed tile
+        function updateEmbedTile() {
+            // check if the embed url was selected
+            var embedTileUrl = "https://msit.powerbi.com/embed?dashboardId=f1f5155b-c6e2-4147-991b-28d914927d05&tileId=50de3c3a-2e8c-49bd-ada4-18d0b1e19415";
+            if ("" === embedTileUrl)
+                return;
+
+            // to load a tile do the following:
+            // 1: set the url, include size.
+            // 2: add a onload handler to submit the auth token
+            iframe = document.getElementById('iFrameEmbedTile');
+            iframe.src =  embedTileUrl + "&width=" + width + "&height=" + height;
+            iframe.onload = postActionLoadTile;
+        }
+
+        
+        // post the auth token to the iFrame. 
+        function postActionLoadTile() {
+            // get the access token.
+            accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Il9VZ3FYR190TUxkdVNKMVQ4Y2FIeFU3Y090YyIsImtpZCI6Il9VZ3FYR190TUxkdVNKMVQ4Y2FIeFU3Y090YyJ9.eyJhdWQiOiJodHRwczovL2FuYWx5c2lzLndpbmRvd3MubmV0L3Bvd2VyYmkvYXBpIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3LyIsImlhdCI6MTQ4NzI1MTg4NCwibmJmIjoxNDg3MjUxODg0LCJleHAiOjE0ODcyNTU3ODQsImFjciI6IjEiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiODcxYzAxMGYtNWU2MS00ZmIxLTgzYWMtOTg2MTBhN2U5MTEwIiwiYXBwaWRhY3IiOiIyIiwiZV9leHAiOjEwODAwLCJmYW1pbHlfbmFtZSI6IlpoYW5nIiwiZ2l2ZW5fbmFtZSI6Ikx2bG9uZyIsImluX2NvcnAiOiJ0cnVlIiwiaXBhZGRyIjoiMTY3LjIyMC4yNTUuNjAiLCJuYW1lIjoiTHZsb25nIFpoYW5nIChTaGFuZyBIYWkgV2VpIENodWFuZyBSdWFuIEppYW4pIiwib2lkIjoiNDc2ODAxMWEtNjY2OC00YWU0LWFiZjAtNTc0MzZkYjI4NDUxIiwib25wcmVtX3NpZCI6IlMtMS01LTIxLTIxNDY3NzMwODUtOTAzMzYzMjg1LTcxOTM0NDcwNy0xODgwNTQ1IiwicGxhdGYiOiIzIiwicHVpZCI6IjEwMDMwMDAwOEMyMkFCREUiLCJzY3AiOiJ1c2VyX2ltcGVyc29uYXRpb24iLCJzdWIiOiI0NDYxUXRUOHowalN0czFXb2VmZUdGTlEySExDVUpxYXpINW44QktadFVRIiwidGlkIjoiNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3IiwidW5pcXVlX25hbWUiOiJ2LWx2emhhbkBtaWNyb3NvZnQuY29tIiwidXBuIjoidi1sdnpoYW5AbWljcm9zb2Z0LmNvbSIsInZlciI6IjEuMCJ9.oeKNPRCT3jjcq6szoLHz5mQBFOc1LDjleOHtasjfvvjtvIMRPhgT-Qy0HQtIT2kiyx5VkjbKPaHCKVaLJlxO2ohEDlFJBWcXgZBGnRLWAYHAdrxaPxhyjQ1Y711xUwtJcOhCqQ6XpaiUPatOwAxNxmhUUwKylzD258HjX4Xg_wmR7_A3pPj6ZkJvwrqIlZQjrVx5vquWzlhrC6nFqKh4WkKcCZpmDwI39hRoOugUcDVfil0iH3ZCg_8Ql8pGFUFKDjINHmvrfOgWp-q5czoqH6oVgcaiWaWoqns7vqM9bE7xB7h-G0jMprUOj5izYTaDOoqoYer57FJp_k--fcCfig";
+
+            // return if no a
+            if ("" === accessToken)
+                return;
+
+            var h = height;
+            var w = width; 
+
+            // construct the push message structure
+            var m = { action: "loadTile", accessToken: accessToken, height: h, width: w};
+            message = JSON.stringify(m);
+
+            // push the message.
+            iframe = document.getElementById('iFrameEmbedTile');
+            iframe.contentWindow.postMessage(message, "*");;
+        }
+
+    </script>
+</head>
+<body>
+
+<iframe ID="iFrameEmbedTile" src="" height="500px" width="500px" frameborder="0" seamless></iframe>
+
+<!-- Visual Studio Browser Link -->
+<script type="application/json" id="__browserLink_initializationData">
+    {"appName":"Chrome","requestId":"ab3c9a4238164ad2bb8954672a5a9399"}
+</script>
+<script type="text/javascript" src="http://localhost:37067/ed3b2d1937bc4b06bd06d5ce0d652d66/browserLink" async="async"></script>
+<!-- End Browser Link -->
+
+</body>
+</html>

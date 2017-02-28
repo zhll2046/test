@@ -1,0 +1,30 @@
+<html>
+
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/jquery/dist/jquery.js"></script>  
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/powerbi-client/dist/powerbi.js"></script>
+ 
+    <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/es6-promise/es6-promise.js"></script>
+    <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/fetch/fetch.js"></script>
+     
+
+<script type="text/javascript">
+window.onload = function () {
+ 
+var embedConfiguration = {
+    type: 'report',
+    accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXIiOiIwLjIuMCIsIndjbiI6IndvcmtzcGFjZUNvbGxlY3Rpb240UEJJIiwid2lkIjoiYjVkMDJiYmItODcxNy00MmJlLWEzMTMtZDEyYTdmYzk0OTcyIiwicmlkIjoiNzk4M2RiYjktOThjYy00ZjRjLTk4NmMtOGM3ODFjZmFkZjI2IiwiaXNzIjoiUG93ZXJCSVNESyIsImF1ZCI6Imh0dHBzOi8vYW5hbHlzaXMud2luZG93cy5uZXQvcG93ZXJiaS9hcGkiLCJleHAiOjE0ODQ4MDkzMzYsIm5iZiI6MTQ4NDgwNTczNn0.mbQSPB6Wn8lYpCk-GoEq_KWsTTlx_dXg9CO8EgNTX60',
+    id: '7983dbb9-98cc-4f4c-986c-8c781cfadf26',
+    embedUrl: 'https://embedded.powerbi.com/appTokenReportEmbed?reportId=7983dbb9-98cc-4f4c-986c-8c781cfadf26'
+}; 
+
+var $reportContainer = $('#reportContainer');
+ 
+var report = powerbi.embed($reportContainer.get(0), embedConfiguration);
+
+report.fullscreen();  
+
+}
+</script>
+
+<div style="height:400px; width:600px" id="reportContainer"></div>
+</html>

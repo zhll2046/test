@@ -1,0 +1,83 @@
+<html>
+
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/jquery/dist/jquery.js"></script>  
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/powerbi-client/dist/powerbi.js""></script>
+
+<script type="text/javascript">
+var embedConfiguration = {
+    type: 'report',
+    accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Il9VZ3FYR190TUxkdVNKMVQ4Y2FIeFU3Y090YyIsImtpZCI6Il9VZ3FYR190TUxkdVNKMVQ4Y2FIeFU3Y090YyJ9.eyJhdWQiOiJodHRwczovL2FuYWx5c2lzLndpbmRvd3MubmV0L3Bvd2VyYmkvYXBpIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3LyIsImlhdCI6MTQ4NzMzNTE2MCwibmJmIjoxNDg3MzM1MTYwLCJleHAiOjE0ODczMzkwNjAsImFjciI6IjEiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiODcxYzAxMGYtNWU2MS00ZmIxLTgzYWMtOTg2MTBhN2U5MTEwIiwiYXBwaWRhY3IiOiIyIiwiZV9leHAiOjEwODAwLCJmYW1pbHlfbmFtZSI6IlpoYW5nIiwiZ2l2ZW5fbmFtZSI6IkVyaWMiLCJpbl9jb3JwIjoidHJ1ZSIsImlwYWRkciI6IjE2Ny4yMjAuMjU1LjYwIiwibmFtZSI6IkVyaWMgWmhhbmcgKFNoYW5nIEhhaSBXZWkgQ2h1YW5nIFJ1YW4gSmlhbikiLCJvaWQiOiI0NzY4MDExYS02NjY4LTRhZTQtYWJmMC01NzQzNmRiMjg0NTEiLCJvbnByZW1fc2lkIjoiUy0xLTUtMjEtMjE0Njc3MzA4NS05MDMzNjMyODUtNzE5MzQ0NzA3LTE4ODA1NDUiLCJwbGF0ZiI6IjMiLCJwdWlkIjoiMTAwMzAwMDA4QzIyQUJERSIsInNjcCI6InVzZXJfaW1wZXJzb25hdGlvbiIsInN1YiI6IjQ0NjFRdFQ4ejBqU3RzMVdvZWZlR0ZOUTJITENVSnFhekg1bjhCS1p0VVEiLCJ0aWQiOiI3MmY5ODhiZi04NmYxLTQxYWYtOTFhYi0yZDdjZDAxMWRiNDciLCJ1bmlxdWVfbmFtZSI6InYtbHZ6aGFuQG1pY3Jvc29mdC5jb20iLCJ1cG4iOiJ2LWx2emhhbkBtaWNyb3NvZnQuY29tIiwidmVyIjoiMS4wIn0.vGL9W6DDkLTMLLKqI76nrh4wOBFYaEFKjy0ile7XS1X46oEtdDRBCbfhnB9FhkbTlW0_vS4JC7Uz1XyPjirKlZr31OMDU-3avGWP_ynx4pCkUw0qSiwUBsWdWsNXfgFe46jDnw225yQfgU3gSjDkN578SBA13QFRVFZthdtBmk09Yhdp79v4lUYmec3GuDY2wTn1hjpCoBr60V5Z7WPBsyDfHw_s6gKGJQCGNgK1xCJQGUo2gVVsxegrlT4J2nQoeCnMis-7sNytWCH4vIM1VkoXSTojtegfUjzoAvN8LDWO242kGDQ4gH2Y7hQJsGzOV3I2gGBZo7As1oerU0tyvA',
+    id: 'cd8856d7-f92e-481a-ad92-5eaec904288f',
+    embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=cd8856d7-f92e-481a-ad92-5eaec904288f' 
+}; 
+
+var report;
+
+window.onload = function () { 
+
+var $reportContainer = $('#reportContainer');
+ 
+ report= powerbi.embed($reportContainer.get(0), embedConfiguration);
+ 
+ 
+ var Filter1 = {
+$schema: "http://powerbi.com/product/schema#advanced",
+target: {
+table: "Table1",
+column: "T1id"
+},
+logicalOperator: "OR",
+conditions: [
+{
+operator: "Contains",
+value: "id1"
+} 
+]
+}
+
+var Filter2 = {
+$schema: "http://powerbi.com/product/schema#advanced",
+target: {
+table: "Table2",
+column: "T2id"
+},
+logicalOperator: "OR",
+conditions: [
+{
+operator: "Contains",
+value: "id1"
+} 
+]
+}
+
+report.on('loaded', event => {
+  report.getFilters()
+    .then(filters => {
+	
+      filters.push(Filter1);
+      filters.push(Filter2);
+      return report.setFilters(filters);
+    });
+});
+ 
+} 
+
+
+function reloadreport(){ 
+
+var $reportContainer = $('#reportContainer');
+powerbi.embedNew($reportContainer.get(0), embedConfiguration);
+
+};
+</script>
+ 
+
+
+<button onclick="reloadreport()">Click me to refresh</button>
+<div id="reportContainer"></div>
+
+</html>  
+
+@MSPowerBI Trying out REST API to push datasets into Power BI service.  Need help THIS WEEKEND to debug code 500 error.  Thanks!!!
+
+Publish cotent to support team on what is upcoming（internally）

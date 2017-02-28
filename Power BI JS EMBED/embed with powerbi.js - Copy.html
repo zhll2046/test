@@ -1,0 +1,48 @@
+<html>
+
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/jquery/dist/jquery.js"></script>  
+ <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/powerbi-client/dist/powerbi.js"></script>
+ 
+    <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/es6-promise/es6-promise.js"></script>
+    <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/bower_components/fetch/fetch.js"></script>
+     
+
+<script type="text/javascript">
+window.onload = function () {
+ 
+var embedConfiguration = {
+    type: 'report',
+    accessToken: 'eyJ0eXAiOiJKV1QiLCJhxxxxxxxr50YyDztxWTrIBOQsBzQmoN1MU',
+    id: '8e84b2xxxxxxx7a6823ca9',
+    embedUrl: 'https://embedded.powerbi.com/appTokenReportEmbed?reportId=8e84b28d-dxxxxxxxxxxxxe07a6823ca9'	 
+}; 
+
+var $reportContainer = $('#reportContainer');
+ 
+var report = powerbi.embed($reportContainer.get(0), embedConfiguration);
+
+ 
+
+report.on('dataSelected', function(event)
+{
+var data = event.detail;
+		 
+         $dataSelectedContainer.text(JSON.stringify(data, null, ' '));
+});
+
+ 
+    
+function initializeDataSelection(report, $dataSelectedContainer) {
+   report.on('dataSelected', event => {
+         var data = event.detail;
+		 
+         $dataSelectedContainer.text(JSON.stringify(data, null, ' '));
+      });
+   }
+ 
+
+}
+</script>
+
+<div style="height:200px; width:300px" id="reportContainer"></div>
+</html>
