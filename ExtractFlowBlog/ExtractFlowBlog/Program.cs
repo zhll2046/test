@@ -14,7 +14,12 @@ namespace ExtractFlowBlog
         static void Main(string[] args)
         {
 
-            GetAllBlogs();
+
+
+            string url = @"https://flow.microsoft.com/en-us/blog/managing-flow-resources-in-the-admin-center/";
+            HtmlDocument hdoc = Crawler.getHtmlDoc(url);
+            StreamWriter sw = new StreamWriter(@"c:\test\1.txt");
+            //GetAllBlogs();
 
             Console.ReadKey();
         }
