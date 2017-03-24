@@ -13,6 +13,7 @@ sudo apt-get install impala             # Binaries for daemons
 sudo apt-get install impala-server      # Service start/stop script
 sudo apt-get install impala-state-store # Service start/stop script
 sudo apt-get install impala-shell
+sudo apt-get install impala-catalog
 
 sudo service impala-server start
 sudo service impala-state-store start
