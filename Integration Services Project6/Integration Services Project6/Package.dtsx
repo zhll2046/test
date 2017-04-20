@@ -1,0 +1,85 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/18/2017 3:59:45 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ERICZHANG"
+  DTS:CreatorName="FAREAST\v-lvzhan"
+  DTS:DTSID="{1F6C7D71-0FEF-4C66-A857-929C9C093463}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{A4D72885-942E-4BF9-83CE-2B1BBA381FD8}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.168.176.60]"
+      DTS:CreationName="SMOServer"
+      DTS:DTSID="{4A1506A7-3B54-4210-A014-576FC1A83B2C}"
+      DTS:ObjectName="10.168.176.60">
+      <DTS:ObjectData>
+        <SMOServerConnectionManager
+          ConnectionString="SqlServerName=10.168.176.60;UseWindowsAuthentication=True;UserName=;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[COSMOSVM]"
+      DTS:CreationName="SMOServer"
+      DTS:DTSID="{F4EBBFB2-EE60-4D9B-B731-55F707DFB333}"
+      DTS:ObjectName="COSMOSVM">
+      <DTS:ObjectData>
+        <SMOServerConnectionManager
+          ConnectionString="SqlServerName=COSMOSVM;UseWindowsAuthentication=True;UserName=;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Transfer SQL Server Objects Task"
+      DTS:CreationName="Microsoft.TransferSqlServerObjectsTask"
+      DTS:Description="Transfer SQL Server Objects Task"
+      DTS:DTSID="{1175D85A-5580-4E7F-A46F-6412F4158D6F}"
+      DTS:ExecutableType="Microsoft.TransferSqlServerObjectsTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Transfer SQL Server Objects Task"
+      DTS:TaskContact="Transfer Objects Task; Microsoft Corporation; SQL Server 2016; (c) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <TransferSqlServerObjectsTaskData
+          SourceConnection="{4A1506A7-3B54-4210-A014-576FC1A83B2C}"
+          DestinationConnection="{F4EBBFB2-EE60-4D9B-B731-55F707DFB333}"
+          SourceDatabase="CosmosDB"
+          DestinationDatabase="CosmosDB"
+          TablesList="15,43,[DBMaintainAndDataLoad].[keyBytesToDecrypt],36,[DBMaintainAndDataLoad].[Operations],22,[dbo].[catTotalThread],14,[dbo].[Person],23,[dbo].[Person_exchange],19,[dbo].[Person_Load],12,[dbo].[Post],21,[dbo].[Post_exchange],17,[dbo].[Post_Load],14,[dbo].[Queues],18,[dbo].[Technology],14,[dbo].[thread],22,[dbo].[Thread_archive],23,[dbo].[thread_exchange],19,[dbo].[Thread_LOAD],"
+          StoredProceduresList="3,44,[DBMaintainAndDataLoad].[PBICases4Emergency],45,[DBMaintainAndDataLoad].[SaveToThreadArchive],49,[DBMaintainAndDataLoad].[updatekeyBytesToDecrypt],"
+          DropObjectsFirst="True" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="238,42"
+          Id="Package\Transfer SQL Server Objects Task"
+          TopLeft="320,154" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

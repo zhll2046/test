@@ -1,0 +1,1250 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/24/2017 12:17:23 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ERICVM2"
+  DTS:CreatorName="FAREAST\v-xjiin"
+  DTS:DTSID="{4DFED99A-6698-40AE-A380-9C6E79CAAA80}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="catDataLoad"
+  DTS:PackageType="5"
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{D735360C-EE55-4DAB-B507-323541FC861D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.168.176.60.CosmosDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{76801BA2-8765-484C-B1C2-AC0420266B00}"
+      DTS:ObjectName="10.168.176.60.CosmosDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=10.168.176.60;Initial Catalog=CosmosDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CO1MSSDWLDB12.CAT_CRM_Subscription]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{59B49B8A-AC6C-4F84-A7FA-3B586612BA90}"
+      DTS:ObjectName="CO1MSSDWLDB12.CAT_CRM_Subscription">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=CO1MSSDWLDB12;Initial Catalog=CAT_CRM_Subscription;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\load data to cattotalthread"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{7842c48a-78bd-4875-8b21-3efb6e501528}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="load data to cattotalthread">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\load data to cattotalthread\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[catTotalThread]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load data to cattotalthread\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.168.176.60.CosmosDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.168.176.60.CosmosDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cat_msalias]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="cat_msalias"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_msalias]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_msalias]" />
+                    <inputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cat_externalid]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="cat_externalid"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_externalid]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_externalid]" />
+                    <inputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Queueid]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Queueid"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Queueid]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[Queueid]" />
+                    <inputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[incidentid]"
+                      cachedDataType="guid"
+                      cachedName="incidentid"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[incidentid]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[incidentid]" />
+                    <inputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cat_ismanagedthread]"
+                      cachedDataType="bool"
+                      cachedName="cat_ismanagedthread"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_ismanagedthread]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_ismanagedthread]" />
+                    <inputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cat_EntitlementStatus]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="cat_EntitlementStatus"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_EntitlementStatus]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_EntitlementStatus]" />
+                    <inputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cat_totallabor]"
+                      cachedDataType="i4"
+                      cachedName="cat_totallabor"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_totallabor]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_totallabor]" />
+                    <inputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cat_URL]"
+                      cachedDataType="wstr"
+                      cachedLength="1000"
+                      cachedName="cat_URL"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_URL]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_URL]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_msalias]"
+                      dataType="wstr"
+                      length="200"
+                      name="cat_msalias" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_externalid]"
+                      dataType="wstr"
+                      length="100"
+                      name="cat_externalid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Queueid]"
+                      dataType="wstr"
+                      length="100"
+                      name="Queueid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[incidentid]"
+                      dataType="guid"
+                      name="incidentid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_totallabor]"
+                      dataType="i4"
+                      name="cat_totallabor" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_URL]"
+                      dataType="wstr"
+                      length="1000"
+                      name="cat_URL" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_ismanagedthread]"
+                      dataType="bool"
+                      name="cat_ismanagedthread" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_EntitlementStatus]"
+                      dataType="wstr"
+                      length="10"
+                      name="cat_EntitlementStatus" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load data to cattotalthread\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load data to cattotalthread\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load data to cattotalthread\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load data to cattotalthread\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select distinct s.cat_msalias,ct.cat_externalid,cf.cat_externalid as Queueid,it.incidentid,it.cat_totallabor,ct.cat_URL, ct.cat_ismanagedthread, ct.cat_EntitlementStatus
+from incident it WITH(nolock)
+join cat_thread ct WITH(nolock) on ct.cat_threadid=it.cat_thread and ct.cat_externalcreatedon&gt;= '2015-03-01'
+join cat_forum cf WITH(nolock) on cf.cat_forumid=ct.cat_forum 
+LEFT join systemuser s WITH(nolock) on s.systemuserid=it.owninguser</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load data to cattotalthread\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[CO1MSSDWLDB12.CAT_CRM_Subscription]"
+                  connectionManagerRefId="Package.ConnectionManagers[CO1MSSDWLDB12.CAT_CRM_Subscription]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_msalias]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_msalias]"
+                      length="200"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_msalias]"
+                      name="cat_msalias"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_externalid]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_externalid]"
+                      length="100"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_externalid]"
+                      name="cat_externalid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[Queueid]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Queueid]"
+                      length="100"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[Queueid]"
+                      name="Queueid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[incidentid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[incidentid]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[incidentid]"
+                      name="incidentid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_ismanagedthread]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_ismanagedthread]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_ismanagedthread]"
+                      name="cat_ismanagedthread"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_EntitlementStatus]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_EntitlementStatus]"
+                      length="10"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_EntitlementStatus]"
+                      name="cat_EntitlementStatus"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_totallabor]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_totallabor]"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_totallabor]"
+                      name="cat_totallabor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_URL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_URL]"
+                      length="1000"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_URL]"
+                      name="cat_URL"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_msalias]"
+                      dataType="wstr"
+                      length="200"
+                      name="cat_msalias" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_externalid]"
+                      dataType="wstr"
+                      length="100"
+                      name="cat_externalid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Queueid]"
+                      dataType="wstr"
+                      length="100"
+                      name="Queueid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[incidentid]"
+                      dataType="guid"
+                      name="incidentid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_ismanagedthread]"
+                      dataType="bool"
+                      name="cat_ismanagedthread" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_EntitlementStatus]"
+                      dataType="wstr"
+                      length="10"
+                      name="cat_EntitlementStatus" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_totallabor]"
+                      dataType="i4"
+                      name="cat_totallabor" />
+                    <externalMetadataColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_URL]"
+                      dataType="wstr"
+                      length="1000"
+                      name="cat_URL" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_msalias]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_msalias]"
+                      name="cat_msalias" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_externalid]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_externalid]"
+                      name="cat_externalid" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Queueid]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Queueid]"
+                      name="Queueid" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[incidentid]"
+                      dataType="guid"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[incidentid]"
+                      name="incidentid" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_totallabor]"
+                      dataType="i4"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_totallabor]"
+                      name="cat_totallabor" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_URL]"
+                      dataType="wstr"
+                      length="1000"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_URL]"
+                      name="cat_URL" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_ismanagedthread]"
+                      dataType="bool"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_ismanagedthread]"
+                      name="cat_ismanagedthread" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_EntitlementStatus]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_EntitlementStatus]"
+                      name="cat_EntitlementStatus" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\load data to cattotalthread.Paths[OLE DB Source Output]"
+              endId="Package\load data to cattotalthread\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\load data to cattotalthread\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\load data to MPILabor"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{30881577-3DA8-420B-8D00-8EE0B09A4B34}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="load data to MPILabor">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\load data to MPILabor\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[ThreadMPILabor]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load data to MPILabor\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.168.176.60.CosmosDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.168.176.60.CosmosDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cat_msalias]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="cat_msalias"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_msalias]"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_msalias]" />
+                    <inputColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cat_externalid]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="cat_externalid"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_externalid]"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_externalid]" />
+                    <inputColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Queueid]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Queueid"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Queueid]"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[Queueid]" />
+                    <inputColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[incidentid]"
+                      cachedDataType="guid"
+                      cachedName="incidentid"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[incidentid]"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[incidentid]" />
+                    <inputColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Labor]"
+                      cachedDataType="i4"
+                      cachedName="Labor"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Labor]"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[Labor]" />
+                    <inputColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cat_ismanagedthread]"
+                      cachedDataType="bool"
+                      cachedName="cat_ismanagedthread"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_ismanagedthread]"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_ismanagedthread]" />
+                    <inputColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cat_EntitlementStatus]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="cat_EntitlementStatus"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_EntitlementStatus]"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_EntitlementStatus]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_msalias]"
+                      dataType="wstr"
+                      length="200"
+                      name="cat_msalias" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_externalid]"
+                      dataType="wstr"
+                      length="100"
+                      name="cat_externalid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Queueid]"
+                      dataType="wstr"
+                      length="100"
+                      name="Queueid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[incidentid]"
+                      dataType="guid"
+                      name="incidentid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Labor]"
+                      dataType="i4"
+                      name="Labor" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_ismanagedthread]"
+                      dataType="bool"
+                      name="cat_ismanagedthread" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cat_EntitlementStatus]"
+                      dataType="wstr"
+                      length="10"
+                      name="cat_EntitlementStatus" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load data to MPILabor\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load data to MPILabor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load data to MPILabor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load data to MPILabor\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select distinct s.cat_msalias,ct.cat_externalid,cf.cat_externalid as Queueid,it.incidentid,(it.cat_totallabor-isnull(sum(cl.cat_labortime),0)) as Labor, ct.cat_ismanagedthread, ct.cat_EntitlementStatus
+from incident it WITH(nolock)
+left join cat_laborextensionbase cl WITH(nolock) on cl.cat_case=it.incidentid 
+and cl.cat_laborforuser in (SELECT distinct systemuserid from systemuser where cat_msalias not like 'v-%')
+join cat_thread ct WITH(nolock) on ct.cat_threadid=it.cat_thread and ct.cat_externalcreatedon&gt;='2015-03-01'  
+and ct.cat_iscomment=0 and it.statuscode&lt;&gt;809060028
+join cat_forum cf WITH(nolock) on cf.cat_forumid=ct.cat_forum 
+join systemuser s WITH(nolock) on s.systemuserid=it.owninguser and s.cat_msalias like 'v-%'
+group by s.cat_msalias,ct.cat_externalid,cf.cat_externalid,it.incidentid,it.cat_totallabor,ct.cat_ismanagedthread,ct.cat_EntitlementStatus</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load data to MPILabor\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[CO1MSSDWLDB12.CAT_CRM_Subscription]"
+                  connectionManagerRefId="Package.ConnectionManagers[CO1MSSDWLDB12.CAT_CRM_Subscription]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_msalias]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_msalias]"
+                      length="200"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_msalias]"
+                      name="cat_msalias"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_externalid]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_externalid]"
+                      length="100"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_externalid]"
+                      name="cat_externalid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[Queueid]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Queueid]"
+                      length="100"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[Queueid]"
+                      name="Queueid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[incidentid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[incidentid]"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[incidentid]"
+                      name="incidentid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[Labor]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Labor]"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[Labor]"
+                      name="Labor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_ismanagedthread]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_ismanagedthread]"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_ismanagedthread]"
+                      name="cat_ismanagedthread"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_EntitlementStatus]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_EntitlementStatus]"
+                      length="10"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].Columns[cat_EntitlementStatus]"
+                      name="cat_EntitlementStatus"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_msalias]"
+                      dataType="wstr"
+                      length="200"
+                      name="cat_msalias" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_externalid]"
+                      dataType="wstr"
+                      length="100"
+                      name="cat_externalid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Queueid]"
+                      dataType="wstr"
+                      length="100"
+                      name="Queueid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[incidentid]"
+                      dataType="guid"
+                      name="incidentid" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Labor]"
+                      dataType="i4"
+                      name="Labor" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_ismanagedthread]"
+                      dataType="bool"
+                      name="cat_ismanagedthread" />
+                    <externalMetadataColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cat_EntitlementStatus]"
+                      dataType="wstr"
+                      length="10"
+                      name="cat_EntitlementStatus" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_msalias]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_msalias]"
+                      name="cat_msalias" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_externalid]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_externalid]"
+                      name="cat_externalid" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Queueid]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Queueid]"
+                      name="Queueid" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[incidentid]"
+                      dataType="guid"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[incidentid]"
+                      name="incidentid" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Labor]"
+                      dataType="i4"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Labor]"
+                      name="Labor" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_ismanagedthread]"
+                      dataType="bool"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_ismanagedthread]"
+                      name="cat_ismanagedthread" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_EntitlementStatus]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cat_EntitlementStatus]"
+                      name="cat_EntitlementStatus" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\load data to MPILabor.Paths[OLE DB Source Output]"
+              endId="Package\load data to MPILabor\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\load data to MPILabor\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate cattotalthread"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{859A0BE6-A6FA-4C9D-9852-753C5F77C8EB}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate cattotalthread"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 RC0; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{76801BA2-8765-484C-B1C2-AC0420266B00}"
+          SQLTask:SqlStatementSource="truncate table [catTotalThread]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate threadmpilabor"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{AFE9D461-BC19-4BC2-935F-47062E29D631}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate threadmpilabor"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 RC0; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{76801BA2-8765-484C-B1C2-AC0420266B00}"
+          SQLTask:SqlStatementSource="truncate table [ThreadMPILabor]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{9F2AAFF6-4D8F-4417-81B5-FBE21225B336}"
+      DTS:From="Package\truncate threadmpilabor"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\load data to MPILabor" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{A0B3F30A-7DF3-46E7-8172-57336FFC6501}"
+      DTS:From="Package\load data to MPILabor"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\truncate cattotalthread" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{EB30BF95-E783-4B1F-B091-B823AC412BD7}"
+      DTS:From="Package\truncate cattotalthread"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\load data to cattotalthread" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="204,42"
+          Id="Package\load data to cattotalthread"
+          TopLeft="326,322" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\load data to MPILabor"
+          TopLeft="329.5,135.5" />
+        <NodeLayout
+          Size="187,42"
+          Id="Package\truncate cattotalthread"
+          TopLeft="333,220" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\truncate threadmpilabor"
+          TopLeft="326,46" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="421.75,88">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.5"
+              Start="0,0"
+              End="0,40">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="423.75,177.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.5"
+              Start="0,0"
+              End="0,35">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="427.25,262">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\load data to cattotalthread">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\load data to cattotalthread\OLE DB Destination"
+          TopLeft="404,239" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\load data to cattotalthread\OLE DB Source"
+          TopLeft="449,47" />
+        <EdgeLayout
+          Id="Package\load data to cattotalthread.Paths[OLE DB Source Output]"
+          TopLeft="524,89">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-34.5,150"
+              Start="0,0"
+              End="-34.5,142.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,71" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,71"
+                    Point2="0,75"
+                    Point3="-4,75" />
+                  <mssgle:LineSegment
+                    End="-30.5,75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-30.5,75"
+                    Point2="-34.5,75"
+                    Point3="-34.5,79" />
+                  <mssgle:LineSegment
+                    End="-34.5,142.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\load data to cattotalthread\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\load data to cattotalthread\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\load data to MPILabor">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="150,42"
+          Id="Package\load data to MPILabor\OLE DB Source"
+          TopLeft="449,47" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\load data to MPILabor\OLE DB Destination"
+          TopLeft="448,252" />
+        <EdgeLayout
+          Id="Package\load data to MPILabor.Paths[OLE DB Source Output]"
+          TopLeft="524,89">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.5,163"
+              Start="0,0"
+              End="9.5,155.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,77.5"
+                    Point2="0,81.5"
+                    Point3="4,81.5" />
+                  <mssgle:LineSegment
+                    End="5.5,81.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.5,81.5"
+                    Point2="9.5,81.5"
+                    Point3="9.5,85.5" />
+                  <mssgle:LineSegment
+                    End="9.5,155.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\load data to MPILabor\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\load data to MPILabor\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
