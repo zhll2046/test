@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ExtractFlowBlog
-{
+
 
 
     class Response
@@ -77,7 +77,7 @@ namespace ExtractFlowBlog
     class Program
     {
         public static string root = @"https://flow.microsoft.com";
-        public static string ConnectionString = @"Server=10.168.176.60;Database=SocialMediaTest;User Id=RWuser4SocialMediaTestDB;Password = Sjynige3b;";
+        public static string ConnectionString = @"Server=ALANYAO-12R2;Database=SocialMediaTest;User Id=RWuser4SocialMediaTestDB;Password = Sjynige3b;";
         static void Main(string[] args)
         {
 

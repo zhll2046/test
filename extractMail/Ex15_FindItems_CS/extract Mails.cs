@@ -20,7 +20,7 @@ namespace Exchange101
         // This sample is for demonstration purposes only. Before you run this sample, make sure that the code meets the coding requirements of your organization. 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static string MailAddress = "v-lvzhan@microsoft.com";
-        private static string password = "Sjynige@b";
+        private static string password = "Sjynige#b";
         private static ExchangeService service = Service.ConnectToService(UserDataFromConsole.GetUserData(MailAddress, password), new TraceListener());
         private static string subFolderName = ConfigurationManager.AppSettings["mailFolderName"];
         private static string matchTableHeader = ConfigurationManager.AppSettings["tableHeader"]; 

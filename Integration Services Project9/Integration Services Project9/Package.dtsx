@@ -1,0 +1,96 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/23/2017 1:38:36 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ERICZHANG"
+  DTS:CreatorName="FAREAST\v-lvzhan"
+  DTS:DTSID="{CC152DE0-DD50-4E86-ABC9-7BB9BC28DD51}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{9BE4A9B5-F8BF-435F-BF79-72D135240A0E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[cosmosvm]"
+      DTS:CreationName="SMOServer"
+      DTS:DTSID="{17016F83-761B-49D8-8727-0FE114FF448C}"
+      DTS:ObjectName="cosmosvm">
+      <DTS:ObjectData>
+        <SMOServerConnectionManager
+          ConnectionString="SqlServerName=cosmosvm;UseWindowsAuthentication=True;UserName=;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[wu-sql-test-01]"
+      DTS:CreationName="SMOServer"
+      DTS:DTSID="{EB9600DD-C537-4965-B1CD-F0AAE747B2B0}"
+      DTS:ObjectName="wu-sql-test-01">
+      <DTS:ObjectData>
+        <SMOServerConnectionManager
+          ConnectionString="SqlServerName=wu-sql-test-01;UseWindowsAuthentication=True;UserName=;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[wx-sql-test-01]"
+      DTS:CreationName="SMOServer"
+      DTS:DTSID="{28F14F41-1E45-470F-B361-90E437D3CA33}"
+      DTS:ObjectName="wx-sql-test-01">
+      <DTS:ObjectData>
+        <SMOServerConnectionManager
+          ConnectionString="SqlServerName=wx-sql-test-01;UseWindowsAuthentication=True;UserName=;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Transfer SQL Server Objects Task"
+      DTS:CreationName="Microsoft.TransferSqlServerObjectsTask"
+      DTS:Description="Transfer SQL Server Objects Task"
+      DTS:DTSID="{EC0251E8-44B5-4D8F-8DFF-FF2F729374BF}"
+      DTS:ExecutableType="Microsoft.TransferSqlServerObjectsTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Transfer SQL Server Objects Task"
+      DTS:TaskContact="Transfer Objects Task; Microsoft Corporation; SQL Server 2016; (c) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <TransferSqlServerObjectsTaskData
+          SourceConnection="{17016F83-761B-49D8-8727-0FE114FF448C}"
+          DestinationConnection="{28F14F41-1E45-470F-B361-90E437D3CA33}"
+          SourceDatabase="cosmosdb"
+          DestinationDatabase="cosmosdb"
+          TablesList="11,43,[DBMaintainAndDataLoad].[keyBytesToDecrypt],36,[DBMaintainAndDataLoad].[Operations],22,[dbo].[catTotalThread],14,[dbo].[Person],23,[dbo].[Person_exchange],12,[dbo].[Post],21,[dbo].[Post_exchange],14,[dbo].[Queues],18,[dbo].[Technology],22,[dbo].[Thread_archive],22,[dbo].[ThreadMPILabor],"
+          StoredProceduresList="3,44,[DBMaintainAndDataLoad].[PBICases4Emergency],45,[DBMaintainAndDataLoad].[SaveToThreadArchive],49,[DBMaintainAndDataLoad].[updatekeyBytesToDecrypt],"
+          SchemasList="1,21,DBMaintainAndDataLoad,"
+          DropObjectsFirst="True" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="238,42"
+          Id="Package\Transfer SQL Server Objects Task"
+          TopLeft="347,130" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
