@@ -37,7 +37,7 @@ namespace extractCAToolTags
       "WHERE  rn = 1 " +
       "ORDER BY [group] ";
 
-        static string ConnectionString = @"Server=wx-sql-test-01;Database=UserVoiceDB;User Id=sa;Password = sa;";
+        static string ConnectionString = @"Server=10.168.178.132;Database=LithiumDatabase2;User Id=RWuser4SocialMediaTestDB;Password = Sjynige2b;";
         static DateTime startDate_ = new DateTime(2017, 1, 1);
 
         //static string endDate = ConfigurationManager.AppSettings["endDate"]; 
@@ -46,13 +46,15 @@ namespace extractCAToolTags
         {
 
             clearTwoTablesInDatabase();
+            
             loadDataToTagsSummizedTable(); 
 
             IList<DataTable> dttbllist = PullData();
 
-            loadDataToTagsDetailedTable(dttbllist); 
+            loadDataToTagsDetailedTable(dttbllist);  
 
-            Console.WriteLine("Done"); 
+            Console.WriteLine("Done");
+            Console.ReadKey();
         }
 
         private static void clearTwoTablesInDatabase()
@@ -62,8 +64,7 @@ namespace extractCAToolTags
                 SqlCommand cmd = new SqlCommand("TRUNCATE TABLE TagsSumarizedTable; TRUNCATE TABLE TagsDetailsTable", connection);
                 connection.Open();
 
-                // create data adapter
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
                 // this will query your database and return the result to your datatable
                  
                 connection.Close(); 
