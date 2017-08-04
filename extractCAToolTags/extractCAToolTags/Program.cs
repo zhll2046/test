@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Net;
-using System.Text;
+using System.Net; 
 using System.Configuration;
 //Install-Package Newtonsoft.Json 
 using Newtonsoft.Json;
-using System.IO;
-using System.Web;
-using System.Collections.Generic;
-using System.Net.Http;
+using System.IO; 
+using System.Collections.Generic; 
 using System.Collections.Specialized;
 using System.Data;
-using System.Data.SqlClient;
-using System.Collections;
+using System.Data.SqlClient; 
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace extractCAToolTags
 {
@@ -22,7 +19,7 @@ namespace extractCAToolTags
     {
 
         static NameValueCollection nvc = ConfigurationManager.AppSettings;
-        static string sql = @"WITH cte " +
+        static string sqlquery = @"WITH cte " +
            "AS (SELECT *, " +
       "'https://cas-portal-uat-api.azurewebsites.net/api/v2.0/instances?product=' " +
       "+ product + '&platform=' + [platform] " +
@@ -40,7 +37,7 @@ namespace extractCAToolTags
       "WHERE  rn = 1 " +
       "ORDER BY [group] ";
 
-        static string ConnectionString = @"Server=horo;Database=UserVoiceDB;User Id=sa;Password = Sjynige2b;";
+        static string ConnectionString = @"Server=wx-sql-test-01;Database=UserVoiceDB;User Id=sa;Password = sa;";
         static DateTime startDate_ = new DateTime(2017, 1, 1);
 
         //static string endDate = ConfigurationManager.AppSettings["endDate"]; 
@@ -48,15 +45,105 @@ namespace extractCAToolTags
         static void Main(string[] args)
         {
 
-            //loadDataToTagsSummizedTable();
+            clearTwoTablesInDatabase();
+            loadDataToTagsSummizedTable(); 
 
-            getThreadInfo(null);
+            IList<DataTable> dttbllist = PullData();
 
-            Console.WriteLine("Done");
-            Console.ReadKey();
+            loadDataToTagsDetailedTable(dttbllist); 
+
+            Console.WriteLine("Done"); 
         }
 
-        private static void loadDataToTagsSummizedTable()
+        private static void clearTwoTablesInDatabase()
+        { 
+                using(SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("TRUNCATE TABLE TagsSumarizedTable; TRUNCATE TABLE TagsDetailsTable", connection);
+                connection.Open();
+
+                // create data adapter
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // this will query your database and return the result to your datatable
+                 
+                connection.Close(); 
+            }
+        }
+
+        private static void loadDataToTagsDetailedTable(IList<DataTable> dttbllist)
+        {
+            int counter = 1;
+            Parallel.ForEach(dttbllist, (datatbl) =>
+            {
+                
+               DataTable dataTable  =  GetDetailTable();
+
+                foreach (DataRow row in datatbl.Rows)
+                {
+
+                    IList<Thread> threads =  getThreadInfo(row["requestURL"].ToString());
+
+                    foreach (Thread thread in threads)
+                    { 
+
+                        dataTable.Rows.Add(row["product"].ToString(), row["platform"].ToString(),
+                            row["Level1Node"].ToString(), row["Level2Node"].ToString(),
+                            thread.id, thread.orignalQuestionId, thread.title, thread.url, thread.queue.displayname,
+                            thread.createdOn, thread.sentiment);
+
+                        
+                        Console.WriteLine(thread.url);
+                        Console.WriteLine("{0} threads are proceeded", counter);
+                        counter++; 
+                    } 
+                }
+
+                BulkInsert(dataTable, "TagsDetailsTable"); 
+
+            });
+        }
+
+        private static IList<DataTable> PullData()
+        {
+            DataTable dataTable = new DataTable();
+
+
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand(sqlquery, connection);
+                connection.Open();
+
+                // create data adapter
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // this will query your database and return the result to your datatable
+                da.Fill(dataTable);
+                connection.Close();
+                da.Dispose();
+            }
+
+            var uniqueList = dataTable.AsEnumerable().Select(x => x.Field<int>("group")).Distinct();
+            List<int> myList = new List<int>();
+            myList = uniqueList.ToList();
+
+            IList<DataTable> dataTableList = new List<DataTable>(); 
+
+            foreach (int item in myList)
+            {
+                var Result = from x in dataTable.AsEnumerable()
+                             where x.Field<int>("group") == item
+                             select x;
+                DataTable table = Result.CopyToDataTable();
+                dataTableList.Add(table); 
+            }
+
+            return dataTableList; 
+
+        }
+
+
+
+
+    private static void loadDataToTagsSummizedTable()
         {
             Parallel.ForEach(nvc.AllKeys, (key) =>
             {
@@ -102,6 +189,27 @@ namespace extractCAToolTags
             table.Columns.Add("Id", typeof(string));
 
             return table;
+        }
+
+        static DataTable GetDetailTable() {
+
+            DataTable table = new DataTable(); 
+
+            table.Columns.Add("product", typeof(string));
+            table.Columns.Add("platform", typeof(string)); 
+            table.Columns.Add("Level1Node", typeof(string));
+            table.Columns.Add("Level2Node", typeof(string));
+            table.Columns.Add("id", typeof(string));
+            table.Columns.Add("orignalQuestionId", typeof(string));
+            table.Columns.Add("title", typeof(string));
+            table.Columns.Add("url", typeof(string));
+            table.Columns.Add("queueDisplayname", typeof(string));
+            table.Columns.Add("createdOn", typeof(string));
+            table.Columns.Add("sentiment", typeof(int)); 
+
+            return table;
+
+
         }
 
         public static void BulkInsert(DataTable dt, string TableName)
@@ -157,7 +265,7 @@ namespace extractCAToolTags
         {
 
             //HttpWebRequest request = System.Net.HttpWebRequest.CreateHttp("http://cas-portal-uat-api.azurewebsites.net/api/v1.0/products/" + product + "/tree?platform=" + platform + "&queueId=&date={%22startDate%22:%22" + startDate + "%22,%22endDate%22:%22" + endDate + "%22}");
-            HttpWebRequest request = System.Net.HttpWebRequest.CreateHttp("https://cas-portal-uat-api.azurewebsites.net/api/v2.0/instances?product=powerbi&platform=powerbi &queue=&date={\"startDate\":\"2017-01-01T00:00:00Z\",\"endDate\":\"2017-02-01T00:00:00Z\"}&code=380");
+            HttpWebRequest request = System.Net.HttpWebRequest.CreateHttp(url);
             //POST web request to create a datasource.
             request.KeepAlive = true;
             request.Method = "GET";
